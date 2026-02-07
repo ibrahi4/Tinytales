@@ -200,8 +200,19 @@ export default function ProductInfo({ product }) {
         </div>
 
         {/* Add to Cart Button */}
-  <button
-  className="sm:mt-6 bg-[#C4A69D] hover:bg-[#B39588] focus:ring-[#C4A69D] shadow-lg hover:shadow-xl flex flex-row justify-center items-center px-8 py-4 gap-2 whitespace-nowrap rounded-xl w-100 h-14 md:w-60 sm:w-80"
+<button
+  className="
+    bg-[#C4A69D] 
+    hover:bg-[#B39588] 
+    focus:ring-[#C4A69D] 
+    shadow-lg 
+    hover:shadow-xl 
+    flex flex-row justify-center items-center 
+    px-6 py-3 gap-2 whitespace-nowrap rounded-xl
+    w-full max-w-75 h-14
+    mx-auto text-center
+    sm:w-80 md:w-60    
+  "
 >
   <ShoppingBag className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3 text-amber-50" />
   <span className="font-semibold text-sm md:text-base text-amber-50">Add To Cart</span>
