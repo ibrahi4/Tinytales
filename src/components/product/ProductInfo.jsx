@@ -168,8 +168,8 @@ export default function ProductInfo({ product }) {
       {/* Quantity & Add to Cart */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-3 md:gap-4">
         {/* Quantity */}
-        <div className="flex-1">
-          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
+        <div className="flex-1 mb-10 md:mb-0 ">
+          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2 ">
             Quantity{' '}
             <span className="text-gray-400 font-normal">
               (${(product?.price || 300).toFixed(2)} for Piece)
