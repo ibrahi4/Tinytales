@@ -140,7 +140,7 @@ export default function Footer() {
                       <IconComponent 
                         className="w-6 h-6" 
                          
-                        
+                        stroke='white'
                         strokeWidth={1.5}
                       />
                     </Link>
