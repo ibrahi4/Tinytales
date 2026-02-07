@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import authApi from '@/lib/api/auth';
-import { saveToken, saveUser, clearAuth, } from '@/lib/utils/storage';
+import { saveToken, saveUser, clearAuth } from '@/lib/utils/storage';
 import { ROUTES } from '@/lib/utils/constants';
 
 export function useAuth() {
@@ -14,23 +14,28 @@ export function useAuth() {
 
   // LOGIN
   const login = async (data) => {
-  setLoading(true);
-  try {
-    const res = await authApi.login(data);
+    setLoading(true);
+    try {
+      const res = await authApi.login(data);
 
-    saveToken(res.data.token);
-    saveUser(res.data);
+      // Save to cookies & localStorage
+      saveToken(res.data.token);
+      saveUser(res.data);
 
-    router.push(ROUTES.DASHBOARD);
-    return { success: true };
-  } catch (error) {
-    
-    const apiError = handleError(error);
-    throw new Error(apiError.message);
-  } finally {
-    setLoading(false);
-  }
-};
+      // Check if there's a redirect parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirect = urlParams.get('redirect') || ROUTES.DASHBOARD;
+      
+      router.push(redirect);
+      return { success: true };
+    } catch (error) {
+      const apiError = handleError(error);
+      throw new Error(apiError.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // REGISTER
   const register = async (data) => {
     setLoading(true);
@@ -57,14 +62,12 @@ export function useAuth() {
     try {
       const res = await authApi.verify({ code });
 
-      // ✅ Fix: Response structure is { status, data: { token, ...user } }
       if (res.data) {
         saveToken(res.data.token);
         saveUser(res.data);
       }
 
       router.push(ROUTES.DASHBOARD);
-
       return { success: true };
     } catch (error) {
       return handleError(error);
@@ -85,13 +88,15 @@ export function useAuth() {
 
   // LOGOUT
   const logout = async () => {
+    setLoading(true);
     try {
       await authApi.logout();
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
-      clearAuth();
+      clearAuth(); // Removes cookie & localStorage
       router.push(ROUTES.LOGIN);
+      setLoading(false);
     }
   };
 

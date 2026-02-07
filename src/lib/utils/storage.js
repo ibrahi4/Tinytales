@@ -1,24 +1,34 @@
 /**
- * Local Storage Utilities
- * Simple storage management for auth data
+ * Cookie & Storage Utilities
+ * Secure storage management for auth data
  */
+
+import Cookies from 'js-cookie';
 
 const TOKEN_KEY = 'tinytales_token';
 const USER_KEY = 'tinytales_user';
 
-// ===== TOKEN =====
+// Cookie options
+const COOKIE_OPTIONS = {
+  expires: 7, // 7 days
+  secure: process.env.NODE_ENV === 'production', // HTTPS only in production
+  sameSite: 'strict', // CSRF protection
+  path: '/',
+};
+
+// ===== TOKEN (Stored in Cookies) =====
 export function saveToken(token) {
   if (typeof window !== 'undefined') {
-    localStorage.setItem(TOKEN_KEY, token);
+    Cookies.set(TOKEN_KEY, token, COOKIE_OPTIONS);
   }
 }
 
 export function getToken() {
   if (typeof window === 'undefined') return null;
-  return localStorage.getItem(TOKEN_KEY);
+  return Cookies.get(TOKEN_KEY) || null;
 }
 
-// ===== USER =====
+// ===== USER (Stored in localStorage for easy access) =====
 export function saveUser(user) {
   if (typeof window !== 'undefined') {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
@@ -47,7 +57,10 @@ export function isAuthenticated() {
 
 export function clearAuth() {
   if (typeof window !== 'undefined') {
-    localStorage.removeItem(TOKEN_KEY);
+    // Clear cookie
+    Cookies.remove(TOKEN_KEY, { path: '/' });
+    
+    // Clear localStorage
     localStorage.removeItem(USER_KEY);
   }
 }
