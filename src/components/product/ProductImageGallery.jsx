@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 'use client';
 
 import React, { useState } from 'react';
@@ -28,17 +29,19 @@ export default function ProductImageGallery({ images = [] }) {
   }
 
   return (
-    <div className="w-full max-w-[652px]">
+    <div className="w-full max-w-163">
       {/* Main Image Container */}
-      <div className="relative bg-gradient-to-b from-gray-100 to-gray-200 rounded-2xl overflow-hidden mb-4 group">
-        <div className="relative h-[500px] w-full">
-          <Image
-            src={images[currentIndex]}
-            alt={`Product image ${currentIndex + 1}`}
-            fill
-            className="object-cover"
-            priority
-          />
+   
+<div className="relative bg-gradient-to-b from-gray-300 to-gray-100 rounded-2xl overflow-hidden mb-4 group">
+  <div className="relative w-full aspect-[2.5/3]"> {/* هنا نخلي كل الصور بنفس نسبة 4:3 */}
+    <Image
+      src={images[currentIndex]}
+      alt={`Product image ${currentIndex + 1}`}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      className="object-cover"
+      priority
+    />
         </div>
 
         {/* Navigation Arrows */}
@@ -59,12 +62,12 @@ export default function ProductImageGallery({ images = [] }) {
         </button>
 
         {/* Progress Indicator */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2">
-          <div className="flex gap-1">
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 shadow-2xl">
+          <div className="flex gap-2">
             {images.map((_, index) => (
               <div
                 key={index}
-                className={`h-0.5 transition-all duration-300 ${
+                className={`h-0.5 w-15 transition-all duration-300 ${
                   index === currentIndex
                     ? 'w-8 bg-white'
                     : 'w-4 bg-white/50'
@@ -97,6 +100,7 @@ export default function ProductImageGallery({ images = [] }) {
                 src={image}
                 alt={`Thumbnail ${index + 1}`}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover"
               />
             )}
