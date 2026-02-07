@@ -99,30 +99,7 @@ export default function RatingSection({ reviews }) {
             comment:
               'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor sit Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed',
           },
-          {
-            id: 2,
-            author: 'Alex Daewn',
-            rating: 4,
-            date: '4 months ago',
-            comment:
-              'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor sit Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed',
-          },
-          {
-            id: 3,
-            author: 'Alex Daewn',
-            rating: 4,
-            date: '4 months ago',
-            comment:
-              'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor sit Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed',
-          },
-          {
-            id: 4,
-            author: 'Alex Daewn',
-            rating: 4,
-            date: '4 months ago',
-            comment:
-              'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy dolor sit Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed',
-          },
+ 
         ]).map((review) => (
           <div key={review.id} className="border-b border-gray-100 pb-6 last:border-0">
             <div className="flex items-center justify-between mb-3">
@@ -140,8 +117,8 @@ export default function RatingSection({ reviews }) {
       </div>
 
       {/* View More Button */}
-      <div className="mt-8 text-center">
-        <button className="px-8 py-3 text-[#C4A69D] hover:text-[#B39588] font-semibold transition-colors">
+      <div className="mt-8 text-center flex justify-center">
+ <button className="mt-6 px-6 py-3 shadow-xs font-semibold bg-[#f5f5f5] hover:bg-[#dacfcc] text-[#ab8270] rounded-lg flex items-center gap-2 transition-colors">
           View More Comments
         </button>
       </div>

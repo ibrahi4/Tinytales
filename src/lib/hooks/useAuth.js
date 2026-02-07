@@ -14,31 +14,29 @@ export function useAuth() {
 
   // LOGIN
   const login = async (data) => {
-    setLoading(true);
-    try {
-      const res = await authApi.login(data);
+  setLoading(true);
+  try {
+    const res = await authApi.login(data);
 
-      // ✅ Fix: API returns { status, data: { token, ...user } }
-      saveToken(res.data.token);
-      saveUser(res.data);
+    saveToken(res.data.token);
+    saveUser(res.data);
 
-      router.push(ROUTES.DASHBOARD);
-
-      return { success: true };
-    } catch (error) {
-      return handleError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+    router.push(ROUTES.DASHBOARD);
+    return { success: true };
+  } catch (error) {
+    
+    const apiError = handleError(error);
+    throw new Error(apiError.message);
+  } finally {
+    setLoading(false);
+  }
+};
   // REGISTER
   const register = async (data) => {
     setLoading(true);
     try {
       const res = await authApi.register(data);
 
-      // ✅ Fix: Save token immediately after register
       saveToken(res.data.token);
       saveUser(res.data);
       
